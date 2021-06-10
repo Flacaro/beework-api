@@ -1,9 +1,9 @@
 package com.beework.models;
 
 public class Progetto {
-    public String id;
-    public String nome;
-    public String descrizione;
+    private String id;
+    private String nome;
+    private String descrizione;
 
     public Progetto(String id, String nome, String descrizione) {
         this.id = id;
@@ -11,9 +11,7 @@ public class Progetto {
         this.descrizione = descrizione;
     }
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
     public void setId(String id) {
         this.id = id;
@@ -34,5 +32,6 @@ public class Progetto {
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
+
 }
 

@@ -9,14 +9,29 @@ import java.util.List;
 
 @Service
 public class TasksService {
+    private static TasksService instance;
+
+    private TasksService() { }
+
+    public static TasksService getInstance() {
+        if (instance != null) {
+            return instance;
+        }
+        else {
+            return new TasksService();
+        }
+    }
+
 
     private CommentiService commentiService = CommentiService.getInstance();
 
     List<Task> tasks = new ArrayList<> (Arrays.asList(
             new Task("1", "telefono casa", "25-06-2021", "urgente",
-                    false,"La casa è diventata bella", "Bellazio", commentiService.getCommenti()),
+                    false,"La casa è diventata bella", "Bellazio",
+                    commentiService.getCommenti(),"1"),
              new Task("2", "telefoni casa", "26-06-2021", "basso",
-                              false,"La casa è bella", "Bellazio", commentiService.getCommenti())
+                     false,"La casa è bella", "Bellazio",
+                     commentiService.getCommenti(),"2")
     ));
 
 

@@ -10,7 +10,20 @@ import java.util.List;
 
 //Business service
 @Service
-public class ProgettiService {
+
+    public class ProgettiService {
+        private static com.beework.services.ProgettiService instance;
+
+        private ProgettiService() { }
+
+        public static com.beework.services.ProgettiService getInstance() {
+            if (instance != null) {
+                return instance;
+            }
+            else {
+                return new com.beework.services.ProgettiService();
+            }
+        }
 List<Progetto> progetti = new ArrayList<> (Arrays.asList(
         new Progetto("1","Studio delfini", "Devono essere aiutati"),
                 new Progetto("2","Ricerca sul citoplasma","cellule")

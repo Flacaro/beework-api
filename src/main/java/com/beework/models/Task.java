@@ -1,6 +1,5 @@
 package com.beework.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Task {
@@ -12,8 +11,10 @@ public class Task {
     private String descrizione;
     private String etichetta;
     private List<Commento> commenti;
+    private String progettoId;
 
-    public Task(String id, String nome, String scadenza, String priorita, boolean completato, String descrizione, String etichetta, List<Commento> commenti) {
+
+    public Task(String id, String nome, String scadenza, String priorita, boolean completato, String descrizione, String etichetta, List<Commento> commenti, String progettoId) {
         this.id = id;
         this.nome = nome;
         this.scadenza = scadenza;
@@ -22,6 +23,8 @@ public class Task {
         this.descrizione = descrizione;
         this.etichetta = etichetta;
         this.commenti = commenti;
+        this.progettoId = progettoId;
+
     }
 
     public String getId() {
@@ -87,4 +90,8 @@ public class Task {
     public void setCommenti(List<Commento> commenti) {
         this.commenti = commenti;
     }
+
+    public String getProgettoId() { return progettoId; }
+
+    public void setProgettoId(String progettoId) { this.progettoId = progettoId; }
 }
