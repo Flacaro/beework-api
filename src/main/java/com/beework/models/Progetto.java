@@ -1,9 +1,13 @@
 package com.beework.models;
 
+import java.util.List;
+
 public class Progetto {
     private String id;
     private String nome;
     private String descrizione;
+    private int percentuale;
+    private List<Utente> membri;
 
     public Progetto(String id, String nome, String descrizione) {
         this.id = id;

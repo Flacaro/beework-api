@@ -1,37 +1,64 @@
 package com.beework.models;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+
+@Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Task {
-    private String id;
+    @Id
+    @GeneratedValue
+    private Long id;
     private String nome;
-    private String scadenza;          // VEDERE SE FUNZIONA CON IL DB
+    private Date scadenza;
     private String priorita;
     private boolean completato;
     private String descrizione;
     private String etichetta;
-    private List<Commento> commenti;
+   // private List<Commento> commenti;
     private String progettoId;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnoreProperties("listaTask")
+    private List<Utente> membri = new ArrayList<>();
 
-
-    public Task(String id, String nome, String scadenza, String priorita, boolean completato, String descrizione, String etichetta, List<Commento> commenti, String progettoId) {
-        this.id = id;
-        this.nome = nome;
-        this.scadenza = scadenza;
-        this.priorita = priorita;
-        this.completato = completato;
-        this.descrizione = descrizione;
-        this.etichetta = etichetta;
-        this.commenti = commenti;
-        this.progettoId = progettoId;
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return id.equals(task.id);
     }
 
-    public String getId() {
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    public Task() {
+    }
+
+    public List<Utente> getMembri() {
+        return membri;
+    }
+
+    public void setMembri(List<Utente> membri) {
+        this.membri = membri;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -43,11 +70,11 @@ public class Task {
         this.nome = nome;
     }
 
-    public String getScadenza() {
+    public Date getScadenza() {
         return scadenza;
     }
 
-    public void setScadenza(String scadenza) {
+    public void setScadenza(Date scadenza) {
         this.scadenza = scadenza;
     }
 
@@ -81,14 +108,6 @@ public class Task {
 
     public void setEtichetta(String etichetta) {
         this.etichetta = etichetta;
-    }
-
-    public List<Commento> getCommenti() {
-        return commenti;
-    }
-
-    public void setCommenti(List<Commento> commenti) {
-        this.commenti = commenti;
     }
 
     public String getProgettoId() { return progettoId; }

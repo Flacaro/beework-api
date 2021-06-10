@@ -1,22 +1,61 @@
 package com.beework.models;
 
-public class Utente {
+import com.fasterxml.jackson.annotation.*;
+import jdk.jfr.Enabled;
+import org.apache.catalina.LifecycleState;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+@Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class Utente implements Serializable {
+    @Id
+    @GeneratedValue
+    private Long id;
     private String username;
     private String password;
     private String nome;
     private String cognome;
     private String email;
     private String bio;
+    @ManyToMany(mappedBy = "membri", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnoreProperties("membri")
+    private List<Task> listaTask = new ArrayList<>();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Utente utente = (Utente) o;
+        return id.equals(utente.id);
+    }
 
-    public Utente(String username, String password, String nome, String cognome, String email, String bio) {
-        this.username = username;
-        this.password = password;
-        this.nome = nome;
-        this.cognome = cognome;
-        this.email = email;
-        this.bio = bio;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
+    public Utente() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Task> getListaTask() {
+        return listaTask;
+    }
+
+    public void setListaTask(List<Task> listaTask) {
+        this.listaTask = listaTask;
     }
 
     public String getUsername() {
