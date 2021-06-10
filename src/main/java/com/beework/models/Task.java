@@ -3,16 +3,16 @@ package com.beework.models;
 import java.util.ArrayList;
 
 public class Task {
-    private int id;
+    private String id;
     private String nome;
-    private String scadenza;
+    private String scadenza;          // VEDERE SE FUNZIONA CON IL DB
     private String priorita;
     private boolean completato;
     private String descrizione;
     private String etichetta;
     private ArrayList<Commento> commenti;
 
-    public Task(int id, String nome, String scadenza, String priorita, boolean completato, String descrizione, String etichetta, ArrayList<Commento> commenti) {
+    public Task(String id, String nome, String scadenza, String priorita, boolean completato, String descrizione, String etichetta, ArrayList<Commento> commenti) {
         this.id = id;
         this.nome = nome;
         this.scadenza = scadenza;
@@ -23,11 +23,11 @@ public class Task {
         this.commenti = commenti;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
