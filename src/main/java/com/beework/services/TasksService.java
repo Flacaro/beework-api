@@ -1,6 +1,5 @@
 package com.beework.services;
 
-import com.beework.models.Progetto;
 import com.beework.models.Task;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +9,16 @@ import java.util.List;
 
 @Service
 public class TasksService {
-    private CommentiService commentiService;
+
+    private CommentiService commentiService = new CommentiService();
 
     List<Task> tasks = new ArrayList<> (Arrays.asList(
             new Task("1", "telefono casa", "25-06-2021", "urgente",
                     false,"La casa è diventata bella", "Bellazio", commentiService.getCommenti()),
-            new Progetto("2","Ricerca sul citoplasma","cellule")
+             new Task("2", "telefoni casa", "26-06-2021", "basso",
+                              false,"La casa è bella", "Bellazio", commentiService.getCommenti())
     ));
+
 
     public List<Task> getTasks() {
         return tasks;
@@ -31,14 +33,6 @@ public class TasksService {
     }
     public void eliminaTask(String id){
         tasks.stream().filter(t -> t.getId().equals(id));
-    }
-    public void modificaTask(String id, Task task) {
-        for(int i = 0; i < tasks.size(); i++){
-            Task t = tasks.get(i);
-            if (t.getId().equals(id)) {
-                tasks.set(i, task);
-                return;
-            }
-        }
+
     }
 }
