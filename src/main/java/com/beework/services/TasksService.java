@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class TasksService {
 
-    private CommentiService commentiService = new CommentiService();
+    private CommentiService commentiService = CommentiService.getInstance();
 
     List<Task> tasks = new ArrayList<> (Arrays.asList(
             new Task("1", "telefono casa", "25-06-2021", "urgente",

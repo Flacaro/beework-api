@@ -1,14 +1,10 @@
 package com.beework.controllers;
 
-import com.beework.models.Progetto;
 import com.beework.models.Task;
-import com.beework.services.ProgettiService;
 import com.beework.services.TasksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -27,7 +23,7 @@ public class TasksController {
         return tasksService.getTask(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "progeprogetti/{progettoId}/taskstti")
+    @RequestMapping(method = RequestMethod.POST, value = "progetti/{progettoId}/tasks")
     public void aggiungiTask(@RequestBody Task task) {
         tasksService.aggiungiTask(task);
     }
