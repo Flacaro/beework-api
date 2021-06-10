@@ -1,4 +1,4 @@
-package com.beework.controllers;
+package com.beework.models;
 
 public class Progetto {
     public String id;

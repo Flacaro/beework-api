@@ -1,5 +1,6 @@
 package com.beework.controllers;
 
+import com.beework.models.Progetto;
 import com.beework.services.ProgettiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

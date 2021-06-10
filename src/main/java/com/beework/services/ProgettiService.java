@@ -1,7 +1,7 @@
 package com.beework.services;
 
 
-import com.beework.controllers.Progetto;
+import com.beework.models.Progetto;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
