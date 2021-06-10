@@ -44,6 +44,4 @@ public class ProgettiController {
     public void modificaProgetto(@RequestBody Progetto progetto, @PathVariable String id){
         progettiService.modificaProgetto(id , progetto);
     }
-
-
 }

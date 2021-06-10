@@ -9,19 +9,6 @@ import java.util.List;
 
 @Service
 public class TasksService {
-    private static TasksService instance;
-
-    private TasksService() { }
-
-    public static TasksService getInstance() {
-        if (instance != null) {
-            return instance;
-        }
-        else {
-            return new TasksService();
-        }
-    }
-
 
     private CommentiService commentiService = CommentiService.getInstance();
 

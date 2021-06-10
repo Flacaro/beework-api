@@ -18,6 +18,7 @@ public class Utente {
         this.bio = bio;
 
     }
+
     public String getUsername() {
         return username;
     }
