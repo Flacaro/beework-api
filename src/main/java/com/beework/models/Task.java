@@ -3,10 +3,12 @@ package com.beework.models;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.Objects;
 public class Task {
     @Id
     @GeneratedValue
+    @Column(name = "ID_TASK", nullable = false)
     private Long id;
     private String nome;
     private Date scadenza;
@@ -24,8 +27,13 @@ public class Task {
     private boolean completato;
     private String descrizione;
     private String etichetta;
-   // private List<Commento> commenti;
-    private String progettoId;
+
+    @ManyToOne
+    private Progetto progetto;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Commento> commenti = new ArrayList<>();
+
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnoreProperties("listaTask")
     private List<Utente> membri = new ArrayList<>();
@@ -110,7 +118,19 @@ public class Task {
         this.etichetta = etichetta;
     }
 
-    public String getProgettoId() { return progettoId; }
+    public Progetto getProgetto() {
+        return progetto;
+    }
 
-    public void setProgettoId(String progettoId) { this.progettoId = progettoId; }
+    public void setProgetto(Progetto progetto) {
+        this.progetto = progetto;
+    }
+
+    public List<Commento> getCommenti() {
+        return commenti;
+    }
+
+    public void setCommenti(List<Commento> commenti) {
+        this.commenti = commenti;
+    }
 }

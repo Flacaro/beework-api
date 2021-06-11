@@ -1,7 +1,12 @@
 package com.beework.models;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Progetto {
@@ -17,13 +22,19 @@ public class Progetto {
         joinColumns = { @JoinColumn(name = "ID_PROGETTO") }, inverseJoinColumns = { @JoinColumn(name = "ID_UTENTE") })
     private List<Utente> membri;
 
+    @OneToMany(mappedBy = "progetto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Task> tasks = new ArrayList<>();
+
     public Progetto() {}
 
-    public Progetto(Long id, String nome, String descrizione) {
-        this.id = id;
-        this.nome = nome;
-        this.descrizione = descrizione;
+    public List<Task> getTasks() {
+        return tasks;
     }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
 
     public Long getId() { return id; }
 
@@ -61,6 +72,19 @@ public class Progetto {
 
     public void setMembri(List<Utente> membri) {
         this.membri = membri;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Progetto progetto = (Progetto) o;
+        return id.equals(progetto.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
 

@@ -1,25 +1,27 @@
 package com.beework.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Commento {
     @Id
     @GeneratedValue
-    @Column(name = "ID_COMMENTO", nullable = false)
+    @Column(name = "ID_COMMENTO", nullable = false, length = 255)
     private Long id;
+
     private String username;
     private String contenuto;
 
+
     public Commento() {}
 
-    public Commento(String username, String contenuto) {
+    public Commento(Long id, String username, String contenuto, Task task) {
+        this.id = id;
         this.username = username;
         this.contenuto = contenuto;
     }
+
 
     public Long getId() {
         return id;
@@ -43,5 +45,18 @@ public class Commento {
 
     public void setContenuto(String contenuto) {
         this.contenuto = contenuto;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Commento commento = (Commento) o;
+        return id.equals(commento.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
