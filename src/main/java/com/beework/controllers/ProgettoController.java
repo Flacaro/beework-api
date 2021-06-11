@@ -27,6 +27,12 @@ public class ProgettoController {
     @Autowired
     private CommentoRepository commentoRepository;
 
+
+    @GetMapping
+    public ResponseEntity<List<Progetto>> getAll() {
+        return ResponseEntity.ok(this.progettiRepository.findAll());
+    }
+
     @GetMapping("/{progettoId}")
     public ResponseEntity<?> getProgetto(@PathVariable Long progettoId) {
         Optional<Progetto> progetto = this.progettiRepository.findById(progettoId);
