@@ -1,11 +1,6 @@
 package com.beework.models;
 
-<<<<<<< HEAD
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-=======
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
->>>>>>> 411296c639a3c3a5b9414176608a6687b9be1d6f
 
 import javax.persistence.*;
 import java.util.ArrayList;
