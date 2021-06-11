@@ -68,7 +68,7 @@ public class ProgettoController {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.status(201).body(progetto.get().getMembriProgetto());
+        return ResponseEntity.status(200).body(progetto.get().getMembriProgetto());
     }
 
     @DeleteMapping("/{progettoId}/utenti/{utenteId}")

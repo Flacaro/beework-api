@@ -27,6 +27,16 @@ public class UtenteController {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.status(201).body(utente.get());
+        return ResponseEntity.status(200).body(utente.get());
+    }
+
+    @GetMapping("/{utenteId}/progetti")
+    public ResponseEntity<?> getProgetti(@PathVariable Long utenteId) {
+        Optional<Utente> utente = this.utenteRepository.findById(utenteId);
+        if (utente.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.status(200).body(utente.get().getListaProgetti());
     }
 }
