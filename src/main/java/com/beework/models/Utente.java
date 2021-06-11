@@ -1,8 +1,6 @@
 package com.beework.models;
 
 import com.fasterxml.jackson.annotation.*;
-import jdk.jfr.Enabled;
-import org.apache.catalina.LifecycleState;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,6 +13,7 @@ import java.util.Objects;
 public class Utente implements Serializable {
     @Id
     @GeneratedValue
+    @Column(name = "ID_UTENTE", nullable = false)
     private Long id;
     private String username;
     private String password;
