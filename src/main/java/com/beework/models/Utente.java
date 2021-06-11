@@ -24,6 +24,9 @@ public class Utente implements Serializable {
     @ManyToMany(mappedBy = "membri", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnoreProperties("membri")
     private List<Task> listaTask = new ArrayList<>();
+    @ManyToMany(mappedBy = "membriProgetto", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnoreProperties("membriProgetto")
+    private List<Progetto> listaProgetti = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
@@ -105,4 +108,7 @@ public class Utente implements Serializable {
         this.bio = bio;
     }
 
+    public List<Progetto> getListaProgetti() { return listaProgetti; }
+
+    public void setListaProgetti(List<Progetto> listaProgetti) { this.listaProgetti = listaProgetti; }
 }

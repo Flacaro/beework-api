@@ -1,7 +1,11 @@
 package com.beework.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Progetto {
@@ -15,7 +19,8 @@ public class Progetto {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "UTENTE_PARTECIPA_PROGETTO",
         joinColumns = { @JoinColumn(name = "ID_PROGETTO") }, inverseJoinColumns = { @JoinColumn(name = "ID_UTENTE") })
-    private List<Utente> membri;
+    @JsonIgnoreProperties("listaProgetti")
+    private List<Utente> membriProgetto = new ArrayList<>();
 
     public Progetto() {}
 
@@ -23,6 +28,19 @@ public class Progetto {
         this.id = id;
         this.nome = nome;
         this.descrizione = descrizione;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Progetto progetto = (Progetto) o;
+        return id.equals(progetto.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public Long getId() { return id; }
@@ -55,12 +73,12 @@ public class Progetto {
         this.percentuale = percentuale;
     }
 
-    public List<Utente> getMembri() {
-        return membri;
+    public List<Utente> getMembriProgetto() {
+        return membriProgetto;
     }
 
-    public void setMembri(List<Utente> membri) {
-        this.membri = membri;
+    public void setMembriProgetto(List<Utente> membriProgetto) {
+        this.membriProgetto = membriProgetto;
     }
 }
 
