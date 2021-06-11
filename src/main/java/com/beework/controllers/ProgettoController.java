@@ -62,7 +62,7 @@ public class ProgettoController {
         if (utente.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        progetto.get().getMembri().add(utente.get());
+        progetto.get().getMembriProgetto().add(utente.get());
         this.progettiRepository.flush();
         return ResponseEntity.status(201).body(progetto);
     }
@@ -74,7 +74,7 @@ public class ProgettoController {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.status(201).body(progetto.get().getMembri());
+        return ResponseEntity.status(200).body(progetto.get().getMembriProgetto());
     }
 
     @DeleteMapping("/{progettoId}/utenti/{utenteId}")
@@ -83,10 +83,10 @@ public class ProgettoController {
         if (progetto.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        List<Utente> utenti = progetto.get().getMembri();
+        List<Utente> utenti = progetto.get().getMembriProgetto();
         for (Utente u : utenti) {
             if (u.getId().equals(utenteId)) {
-                progetto.get().getMembri().remove(u);
+                progetto.get().getMembriProgetto().remove(u);
                 this.progettiRepository.flush();
                 return ResponseEntity.status(200).body(progetto);
             }
