@@ -1,8 +1,7 @@
 package com.beework.controllers;
 
-import com.beework.models.Task;
-import com.beework.models.EntityId;
-import com.beework.models.Utente;
+import com.beework.models.*;
+import com.beework.repositories.NotificaRepository;
 import com.beework.repositories.TaskRepository;
 import com.beework.repositories.UtenteRepository;
 import org.slf4j.Logger;
@@ -12,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -24,6 +24,8 @@ public class TaskController {
     private TaskRepository taskRepository;
     @Autowired
     private UtenteRepository utenteRepository;
+    @Autowired
+    private NotificaRepository notificaRepository;
 
     @GetMapping
     public ResponseEntity<List<Task>> getTasks() {
@@ -37,13 +39,19 @@ public class TaskController {
     }
 
     @PostMapping("/{taskId}/members")
-    public ResponseEntity<?> addMember(@RequestBody EntityId entityId, @PathVariable Long taskId) {
-        Task task = this.taskRepository.getById(taskId);
-        //dovremmo usare findById che restituisce un Optional e si può gestire
-        Utente utente = utenteRepository.getById(entityId.getEntityId());
-        task.getMembri().add(utente);
-        utente.getListaTask().add(task);
-        taskRepository.flush();
+    public ResponseEntity<?> aggiungiMembri(@RequestBody EntityId entityId, @PathVariable Long taskId) {
+        Optional<Task> task = this.taskRepository.findById(taskId);
+        if (task.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        Optional<Utente> utente = this.utenteRepository.findById(entityId.getEntityId());
+        if (utente.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        task.get().getMembri().add(utente.get());
+        Notifica notifica = new Notifica("Nuovo Task", "Sei stato aggiunto al task " + task.get().getNome(), utente.get());
+        this.notificaRepository.save(notifica);
+        this.taskRepository.flush();
         return ResponseEntity.status(201).body(task);
     }
 }
