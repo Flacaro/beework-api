@@ -44,6 +44,15 @@ public class Utente implements Serializable {
 
     public Utente() { }
 
+    public Utente(String username, String password, String nome, String cognome, String email, String bio) {
+        this.username = username;
+        this.password = password;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.email = email;
+        this.bio = bio;
+    }
+
     public Long getId() {
         return id;
     }

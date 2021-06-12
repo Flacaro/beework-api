@@ -26,7 +26,7 @@ public class CommentoController {
 
     @GetMapping
     public ResponseEntity<List<Commento>> getCommenti(@PathVariable Long progettoId, @PathVariable Long taskId) {
-        Optional<Progetto> progetto = this.progettiRepository.findById(taskId);
+        Optional<Progetto> progetto = this.progettiRepository.findById(progettoId);
         if (progetto.isEmpty()) {
             return ResponseEntity.notFound().build();
         }

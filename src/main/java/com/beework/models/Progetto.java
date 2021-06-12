@@ -30,6 +30,12 @@ public class Progetto {
 
     public Progetto() {}
 
+    public Progetto(String nome, String descrizione, int percentuale) {
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.percentuale = percentuale;
+    }
+
     public List<Task> getTasks() {
         return tasks;
     }
