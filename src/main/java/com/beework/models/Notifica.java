@@ -1,9 +1,12 @@
 package com.beework.models;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import javax.persistence.*;
+
+@Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Notifica {
     @Id
     @GeneratedValue
@@ -11,15 +14,20 @@ public class Notifica {
     private Long id;
     private String nome;
     private String descrizione;
-    private Utente membro;
+    @ManyToOne
+    private Utente utente;
 
-    public Notifica() {
-    }
+    public Notifica() {}
 
-    public Notifica(String nome, String descrizione) {
+    public Notifica(String nome, String descrizione, Utente utente) {
         this.nome = nome;
         this.descrizione = descrizione;
+        this.utente = utente;
     }
+
+    public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
 
     public String getNome() {
         return nome;
@@ -37,4 +45,7 @@ public class Notifica {
         this.descrizione = descrizione;
     }
 
+    public Utente getUtente() { return utente; }
+
+    public void setUtente(Utente utente) { this.utente = utente; }
 }

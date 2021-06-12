@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/tasks")
+@RequestMapping("tasks")
 public class TaskController {
 
     private final Logger logger = LoggerFactory.getLogger(TaskController.class);

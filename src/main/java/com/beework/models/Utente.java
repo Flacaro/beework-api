@@ -28,6 +28,7 @@ public class Utente implements Serializable {
     @JsonIgnoreProperties("membriProgetto")
     private List<Progetto> listaProgetti = new ArrayList<>();
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -41,8 +42,7 @@ public class Utente implements Serializable {
         return Objects.hash(id);
     }
 
-    public Utente() {
-    }
+    public Utente() { }
 
     public Long getId() {
         return id;
@@ -111,4 +111,6 @@ public class Utente implements Serializable {
     public List<Progetto> getListaProgetti() { return listaProgetti; }
 
     public void setListaProgetti(List<Progetto> listaProgetti) { this.listaProgetti = listaProgetti; }
+
+
 }

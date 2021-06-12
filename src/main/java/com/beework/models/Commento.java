@@ -1,7 +1,6 @@
 package com.beework.models;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 public class Commento {
@@ -9,19 +8,19 @@ public class Commento {
     @GeneratedValue
     @Column(name = "ID_COMMENTO", nullable = false, length = 255)
     private Long id;
-
-    private String username;
     private String contenuto;
-
+    @ManyToOne
+    private Task task;
+    @ManyToOne
+    private Utente utente;
 
     public Commento() {}
 
-    public Commento(Long id, String username, String contenuto, Task task) {
-        this.id = id;
-        this.username = username;
+    public Commento(String contenuto, Task task, Utente utente) {
         this.contenuto = contenuto;
+        this.task = task;
+        this.utente = utente;
     }
-
 
     public Long getId() {
         return id;
@@ -29,14 +28,6 @@ public class Commento {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getContenuto() {
@@ -47,16 +38,19 @@ public class Commento {
         this.contenuto = contenuto;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Commento commento = (Commento) o;
-        return id.equals(commento.id);
+    public Task getTask() {
+        return task;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
+    public Utente getUtente() {
+        return utente;
+    }
+
+    public void setUtente(Utente utente) {
+        this.utente = utente;
     }
 }

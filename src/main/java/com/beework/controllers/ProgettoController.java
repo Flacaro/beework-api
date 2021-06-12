@@ -1,10 +1,7 @@
 package com.beework.controllers;
 
 import com.beework.models.*;
-import com.beework.repositories.CommentoRepository;
-import com.beework.repositories.ProgettiRepository;
-import com.beework.repositories.TaskRepository;
-import com.beework.repositories.UtenteRepository;
+import com.beework.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +23,9 @@ public class ProgettoController {
 
     @Autowired
     private CommentoRepository commentoRepository;
+
+    @Autowired
+    private NotificaRepository notificaRepository;
 
 
     @GetMapping
@@ -69,6 +69,8 @@ public class ProgettoController {
             return ResponseEntity.notFound().build();
         }
         progetto.get().getMembriProgetto().add(utente.get());
+        Notifica notifica = new Notifica("Nuovo Progetto", "Sei stato aggiunto al progetto " + progetto.get().getNome(), utente.get());
+        this.notificaRepository.save(notifica);
         this.progettiRepository.flush();
         return ResponseEntity.status(201).body(progetto);
     }
