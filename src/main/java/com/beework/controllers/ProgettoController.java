@@ -114,7 +114,7 @@ public class ProgettoController {
 
 
     @PostMapping("/{progettoId}/tasks")
-    public ResponseEntity<Task> salvaTask(@PathVariable("progettoId") Long progettoId, @RequestBody Task task) {
+    public ResponseEntity<Task> aggiungiTask(@PathVariable("progettoId") Long progettoId, @RequestBody Task task) {
         Optional<Progetto> progetto = this.progettiRepository.findById(progettoId);
 
         if(progetto.isEmpty()) return ResponseEntity.notFound().build();
@@ -127,48 +127,4 @@ public class ProgettoController {
 
         return ResponseEntity.status(201).body(taskSalvato);
     }
-
-    // progetto X e Z
-    // task del progetto X hanno id 1 e 2
-    // task del progetto Z hanno id 3 e 4
-    // /progetti/X/tasks/3/commenti
-
-    @GetMapping("/{progettoId}/tasks/{taskId}/commenti")
-    public ResponseEntity<List<Commento>> getAllComments(
-            @PathVariable("progettoId") Long progettoId,
-            @PathVariable("taskId") Long taskId) {
-
-        Optional<Progetto> progetto = this.progettiRepository.findById(progettoId);
-        Optional<Task> task = this.taskRepository.findById(taskId);
-
-        if(progetto.isEmpty() || task.isEmpty() ) return ResponseEntity.notFound().build();
-
-        // controlla se il task è nel progetto
-        if(!progetto.get().getTasks().contains(task.get())) return ResponseEntity.notFound().build();
-
-        return ResponseEntity.ok(task.get().getCommenti());
-    }
-
-    @PostMapping("/{progettoId}/tasks/{taskId}/commenti")
-    public ResponseEntity<Commento> salvaCommento(
-            @PathVariable("progettoId") Long progettoId,
-            @PathVariable("taskId") Long taskId,
-            @RequestBody Commento commento) {
-
-        Optional<Progetto> progetto = this.progettiRepository.findById(progettoId);
-        Optional<Task> task = this.taskRepository.findById(taskId);
-
-        if(progetto.isEmpty() || task.isEmpty() ) return ResponseEntity.notFound().build();
-
-        // controlla se il task è nel progetto
-        if(!progetto.get().getTasks().contains(task.get())) return ResponseEntity.notFound().build();
-
-        Commento commentoSalvato = this.commentoRepository.save(commento);
-
-        task.get().getCommenti().add(commentoSalvato);
-        this.taskRepository.flush();
-
-        return ResponseEntity.status(201).body(commentoSalvato);
-    }
-
 }
