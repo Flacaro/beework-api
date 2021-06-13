@@ -31,7 +31,9 @@ public class Task {
     private List<Commento> commenti = new ArrayList<>();
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "UTENTE_LAVORA_TASK",
+            joinColumns = { @JoinColumn(name = "ID_TASK") }, inverseJoinColumns = { @JoinColumn(name = "ID_UTENTE") })
     @JsonIgnoreProperties("listaTask")
     private List<Utente> membri = new ArrayList<>();
 
@@ -132,11 +134,7 @@ public class Task {
         this.progetto = progetto;
     }
 
-    public List<Commento> getCommenti() {
-        return commenti;
-    }
+    public List<Commento> getCommenti() { return commenti; }
 
-    public void setCommenti(List<Commento> commenti) {
-        this.commenti = commenti;
-    }
+    public void setCommenti(List<Commento> commenti) { this.commenti = commenti; }
 }
