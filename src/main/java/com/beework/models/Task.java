@@ -3,14 +3,11 @@ package com.beework.models;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,7 +19,7 @@ public class Task {
     @Column(name = "ID_TASK", nullable = false)
     private Long id;
     private String nome;
-    private Date scadenza;
+    private LocalDate scadenza;
     private String priorita;
     private boolean completato;
     private String descrizione;
@@ -34,7 +31,9 @@ public class Task {
     private List<Commento> commenti = new ArrayList<>();
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "UTENTE_LAVORA_TASK",
+            joinColumns = { @JoinColumn(name = "ID_TASK") }, inverseJoinColumns = { @JoinColumn(name = "ID_UTENTE") })
     @JsonIgnoreProperties("listaTask")
     private List<Utente> membri = new ArrayList<>();
 
@@ -51,7 +50,16 @@ public class Task {
         return Objects.hash(id);
     }
 
-    public Task() {
+    public Task() {}
+
+    public Task(String nome, LocalDate scadenza, String priorita, boolean completato, String descrizione, String etichetta, Progetto progetto) {
+        this.nome = nome;
+        this.scadenza = scadenza;
+        this.priorita = priorita;
+        this.completato = completato;
+        this.descrizione = descrizione;
+        this.etichetta = etichetta;
+        this.progetto = progetto;
     }
 
     public List<Utente> getMembri() {
@@ -78,11 +86,11 @@ public class Task {
         this.nome = nome;
     }
 
-    public Date getScadenza() {
+    public LocalDate getScadenza() {
         return scadenza;
     }
 
-    public void setScadenza(Date scadenza) {
+    public void setScadenza(LocalDate scadenza) {
         this.scadenza = scadenza;
     }
 
@@ -126,11 +134,7 @@ public class Task {
         this.progetto = progetto;
     }
 
-    public List<Commento> getCommenti() {
-        return commenti;
-    }
+    public List<Commento> getCommenti() { return commenti; }
 
-    public void setCommenti(List<Commento> commenti) {
-        this.commenti = commenti;
-    }
+    public void setCommenti(List<Commento> commenti) { this.commenti = commenti; }
 }

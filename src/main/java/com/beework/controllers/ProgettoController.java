@@ -27,6 +27,7 @@ public class ProgettoController {
     @Autowired
     private NotificaRepository notificaRepository;
 
+    //DA RIMUOVERE QUANDO CLIENT SIDE SI HA L'UTENTE'
 
     @GetMapping
     public ResponseEntity<List<Progetto>> getAll() {
@@ -42,6 +43,17 @@ public class ProgettoController {
 
         return ResponseEntity.status(201).body(progetto.get());
     }
+
+    /*
+    @GetMapping()
+    public ResponseEntity<?> getProgettoByUtente(@RequestBody Utente utente) {
+        Optional<Utente> u1 = this.utenteRepository.findById(utente.getId());
+        if (u1.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(progettiRepository.findProgettoByMembriProgettoContains(u1.get()));
+    }
+*/
 
     @PostMapping
     public ResponseEntity<Progetto> aggiungiProgetto(@RequestBody Progetto progetto) {

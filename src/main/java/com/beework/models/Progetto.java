@@ -25,10 +25,16 @@ public class Progetto {
     @JsonIgnoreProperties("listaProgetti")
     private List<Utente> membriProgetto = new ArrayList<>();
 
-    @OneToMany(mappedBy = "progetto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks = new ArrayList<>();
 
     public Progetto() {}
+
+    public Progetto(String nome, String descrizione, int percentuale) {
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.percentuale = percentuale;
+    }
 
     public List<Task> getTasks() {
         return tasks;
