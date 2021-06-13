@@ -1,9 +1,6 @@
 package com.beework;
 
-import com.beework.models.Commento;
-import com.beework.models.Progetto;
-import com.beework.models.Task;
-import com.beework.models.Utente;
+import com.beework.models.*;
 import com.beework.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -80,6 +77,33 @@ public class BeeworkApiApplication {
             commentoRepository.save(c3);
             Commento c4 = new Commento("Siii!", t3, u3);
             commentoRepository.save(c4);
+
+            Notifica n1 = new Notifica("Nuovo Progetto", "Sei stato aggiunto al progetto " + p1.getNome(), u1);
+            notificaRepository.save(n1);
+            Notifica n2 = new Notifica("Nuovo Progetto", "Sei stato aggiunto al progetto " + p1.getNome(), u2);
+            notificaRepository.save(n2);
+            Notifica n3 = new Notifica("Nuovo Progetto", "Sei stato aggiunto al progetto " + p1.getNome(), u3);
+            notificaRepository.save(n3);
+            Notifica n4 = new Notifica("Nuovo Progetto", "Sei stato aggiunto al progetto " + p2.getNome(), u1);
+            notificaRepository.save(n4);
+            Notifica n5 = new Notifica("Nuovo Progetto", "Sei stato aggiunto al progetto " + p2.getNome(), u3);
+            notificaRepository.save(n5);
+            Notifica n6 = new Notifica("Nuovo Progetto", "Sei stato aggiunto al progetto " + p3.getNome(), u2);
+            notificaRepository.save(n6);
+            Notifica n7 = new Notifica("Nuovo Progetto", "Sei stato aggiunto al progetto " + p3.getNome(), u3);
+            notificaRepository.save(n7);
+            Notifica n8 = new Notifica("Nuovo Task", "Sei stato aggiunto al task " + t1.getNome(), u1);
+            notificaRepository.save(n8);
+            Notifica n9 = new Notifica("Nuovo Task", "Sei stato aggiunto al task " + t1.getNome(), u2);
+            notificaRepository.save(n9);
+            Notifica n10 = new Notifica("Nuovo Task", "Sei stato aggiunto al task " + t1.getNome(), u3);
+            notificaRepository.save(n10);
+            Notifica n11 = new Notifica("Nuovo Task", "Sei stato aggiunto al task " + t2.getNome(), u2);
+            notificaRepository.save(n11);
+            Notifica n12 = new Notifica("Nuovo Task", "Sei stato aggiunto al task " + t3.getNome(), u1);
+            notificaRepository.save(n12);
+            Notifica n13 = new Notifica("Nuovo Task", "Sei stato aggiunto al task " + t3.getNome(), u3);
+            notificaRepository.save(n13);
         };
     }
 }
