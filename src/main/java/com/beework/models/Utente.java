@@ -28,6 +28,9 @@ public class Utente implements Serializable {
     @JsonIgnoreProperties("membriProgetto")
     private List<Progetto> listaProgetti = new ArrayList<>();
 
+    public Utente(String nome, String cognome, String email, String password) {
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -112,5 +115,16 @@ public class Utente implements Serializable {
 
     public void setListaProgetti(List<Progetto> listaProgetti) { this.listaProgetti = listaProgetti; }
 
-
+    @Override
+    public String toString() {
+        return "Utente{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", email='" + email + '\'' +
+                ", bio='" + bio + '\'' +
+                '}';
+    }
 }
