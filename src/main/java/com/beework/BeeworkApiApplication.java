@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -27,9 +28,9 @@ public class BeeworkApiApplication {
             Progetto p2 = new Progetto("Etologia", "Corso di Etologia", 20);
             Progetto p3 = new Progetto("Archeologia", "Corso di Archeologia", 50);
 
-            Utente u1 = new Utente("Ciccio97", "fkjakmk3", "Francesco", "Pancetta", "ciccio.pancetta@gmail.com", "");
-            Utente u2 = new Utente("RCarlos3", "32uhd92", "Roberto", "Carlos", "carlos3@gmail.com", "Campione del Mondo 2002");
-            Utente u3 = new Utente("cristiano", "423d32ss", "Cristiano", "Ronaldo", "cr7@outlook.com", "GOAT");
+            Utente u1 = new Utente("Ciccio97", new BCryptPasswordEncoder().encode("fkjakmk3"), "Francesco", "Pancetta", "ciccio.pancetta@gmail.com", "Ciao Mondo!");
+            Utente u2 = new Utente("RCarlos3", new BCryptPasswordEncoder().encode("32uhd92"), "Roberto", "Carlos", "carlos3@gmail.com", "Campione del Mondo 2002");
+            Utente u3 = new Utente("cristiano", new BCryptPasswordEncoder().encode("423d32ss"), "Cristiano", "Ronaldo", "cr7@outlook.com", "GOAT");
             utenteRepository.save(u1);
             utenteRepository.save(u2);
             utenteRepository.save(u3);
