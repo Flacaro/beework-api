@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityExistsException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,7 +58,11 @@ public class ProgettoController {
 */
 
     @PostMapping
-    public ResponseEntity<Progetto> aggiungiProgetto(@RequestBody Progetto progetto) {
+    public ResponseEntity<Progetto> aggiungiProgetto(@RequestBody Progetto progetto, Principal principal) {
+        Utente utente = this.utenteRepository.findByEmail(principal.getName())
+                .orElseThrow(EntityExistsException::new);
+        progetto.getMembriProgetto().add(utente);
+        this.progettiRepository.flush();
         return ResponseEntity.status(201).body(this.progettiRepository.save(progetto));
     }
 
