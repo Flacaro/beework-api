@@ -33,6 +33,13 @@ public class TaskController {
         return ResponseEntity.ok(taskRepository.findAll());
     }
 
+    @GetMapping("/{taskId}")
+    public ResponseEntity<Task> getTask( @PathVariable Long taskId) {
+        Optional<Task> task = taskRepository.findById(taskId);
+        if (task.isEmpty()) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(task.get());
+    }
+
     @PostMapping
     public ResponseEntity<Task> addTask(@RequestBody Task task) {
         return ResponseEntity.status(201).body(taskRepository.save(task));

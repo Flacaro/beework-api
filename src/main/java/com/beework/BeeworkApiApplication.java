@@ -21,6 +21,7 @@ public class BeeworkApiApplication {
         SpringApplication.run(BeeworkApiApplication.class, args);
     }
 
+
     @Bean
     public CommandLineRunner loadData(UtenteRepository utenteRepository, TaskRepository taskRepository, ProgettiRepository progettiRepository, NotificaRepository notificaRepository, CommentoRepository commentoRepository) {
         return (args) -> {
@@ -107,4 +108,49 @@ public class BeeworkApiApplication {
             notificaRepository.save(n13);
         };
     }
+    /*@Bean
+    public CommandLineRunner loadData(UtenteRepository utenteRepository, TaskRepository taskRepository, ProgettiRepository progettiRepository, NotificaRepository notificaRepository, CommentoRepository commentoRepository) {
+        return (args) -> {
+            Progetto p1 = new Progetto("Paleontologia", "Corso di Paleontologia", 0);
+            Progetto p2 = new Progetto("Etologia", "Corso di Etologia", 20);
+            Progetto p3 = new Progetto("Etolo", "Corso di Etolo", 40);
+
+            Utente u1 = new Utente("Ciccio97", new BCryptPasswordEncoder().encode("secret"), "Francesco", "Pancetta", "ciccio.pancetta@gmail.com", "Ciao Mondo!");
+            Utente u2 = new Utente("RCarlos3", new BCryptPasswordEncoder().encode("secret"), "Roberto", "Carlos", "carlos3@gmail.com", "Campione del Mondo 2002");
+
+            List<Progetto> progettiSalvati = progettiRepository.saveAll(List.of(p1,p2,p3));
+            List<Utente> utentiSalvati = utenteRepository.saveAll(List.of(u1,u2));
+            p1.getMembriProgetto().add(u1);
+            u1.getListaProgetti().add(p1);
+
+            progettiSalvati.forEach(progetto -> progetto.getMembriProgetto().addAll(utentiSalvati));
+            utentiSalvati.forEach(utente -> utente.getListaProgetti().addAll(progettiSalvati));
+            progettiRepository.flush();
+
+            Task t1 = new Task("Ricerca sul T-Rex", LocalDate.of(2021,7,31), "bassa", false, "Approfondire la relazione con il triceratopo", "Università", p1);
+            Task t2 = new Task("Scavi a Pompei", LocalDate.of(2022,3,15), "bassa", false, "Restauro utensili", "Università", p1);
+            Task t3 = new Task("Studio tapiro venezuelano", LocalDate.of(2021,9,30), "alta", false, "Approfondire il comportamento del tapiro in inverno", "Università", p2);
+
+            List<Task> taskSalvati = taskRepository.saveAll(List.of(t1,t2,t3));
+
+            t1.getMembri().add(u1);
+            u1.getListaTask().add(t1);
+            utenteRepository.flush();
+            taskRepository.flush();
+
+
+
+            Commento c1 = new Commento("Andiamo a vederlo allo zoo!", t3, u2);
+            Commento c2 = new Commento("Non sto nella pelle!", t2, u2);
+            Commento c3 = new Commento("Preferivo il velociraptor", t1, u1);
+
+            List<Commento> commentiSalvati = commentoRepository.saveAll(List.of(c1,c2,c3));
+
+
+            Notifica n1 = new Notifica("Nuovo Progetto", "Sei stato aggiunto al progetto " + p1.getNome(), u1);
+            Notifica n2 = new Notifica("Nuovo Progetto", "Sei stato aggiunto al progetto " + p1.getNome(), u2);
+
+            List<Notifica> notifiche = notificaRepository.saveAll(List.of(n1,n2));
+        };
+    }*/
 }
