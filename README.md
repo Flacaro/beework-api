@@ -18,10 +18,10 @@ Per poter usufruire delle funzionalità offerte da BeeWork-API è necessario ave
 
 ## Esecuzione
 Dopo aver verificato i requisiti, è possibile clonare ed utilizzare l'applicazione tramite i comandi:
-...
+```
 $ mvn clean
 $ mvn spring-boot:run
-...
+```
 
 ## Team di sviluppo
 
