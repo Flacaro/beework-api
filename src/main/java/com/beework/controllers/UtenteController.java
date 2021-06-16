@@ -3,6 +3,8 @@ package com.beework.controllers;
 import com.beework.models.Progetto;
 import com.beework.models.Utente;
 import com.beework.repositories.UtenteRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("utenti")
 public class UtenteController {
+    private final Logger logger = LoggerFactory.getLogger(UtenteController.class);
     @Autowired
     private UtenteRepository utenteRepository;
 
@@ -42,12 +45,13 @@ public class UtenteController {
 
     @PutMapping
     public ResponseEntity<Utente> updateUtente(@RequestBody Utente utente, Principal principal) {
-        Optional<Utente> u = this.utenteRepository.findByEmail(utente.getEmail());
+        Optional<Utente> u = this.utenteRepository.findByEmail(principal.getName());
         if (u.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+        logger.info("{}",utente);
         u.get().setBio(utente.getBio());
-        utenteRepository.flush();
+        utenteRepository.saveAndFlush(u.get());
 
         return ResponseEntity.status(200).body(u.get());
     }
