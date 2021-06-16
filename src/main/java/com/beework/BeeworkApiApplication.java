@@ -20,7 +20,7 @@ public class BeeworkApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(BeeworkApiApplication.class, args);
     }
-
+/*
 
     @Bean
     public CommandLineRunner loadData(UtenteRepository utenteRepository, TaskRepository taskRepository, ProgettiRepository progettiRepository, NotificaRepository notificaRepository, CommentoRepository commentoRepository) {
@@ -107,7 +107,7 @@ public class BeeworkApiApplication {
             Notifica n13 = new Notifica("Nuovo Task", "Sei stato aggiunto al task " + t3.getNome(), u3);
             notificaRepository.save(n13);
         };
-    }
+    }*/
     /*@Bean
     public CommandLineRunner loadData(UtenteRepository utenteRepository, TaskRepository taskRepository, ProgettiRepository progettiRepository, NotificaRepository notificaRepository, CommentoRepository commentoRepository) {
         return (args) -> {

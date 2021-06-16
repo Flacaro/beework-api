@@ -42,15 +42,13 @@ public class UtenteController {
 
     @PutMapping
     public ResponseEntity<Utente> updateUtente(@RequestBody Utente utente, Principal principal) {
-        Optional<Utente> u = this.utenteRepository.findByEmail(principal.getName());
+        Optional<Utente> u = this.utenteRepository.findByEmail(utente.getEmail());
         if (u.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        utente.setBio(u.get().getBio());
+        u.get().setBio(utente.getBio());
         utenteRepository.flush();
 
-        return ResponseEntity
-                .noContent()
-                .build();
+        return ResponseEntity.status(200).body(u.get());
     }
 }
