@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @RestController
@@ -20,13 +21,12 @@ public class UtenteController {
         return ResponseEntity.status(201).body(this.utenteRepository.save(utente));
     }
 
-    @GetMapping("/{utenteId}")
-    public ResponseEntity<?> getUtente(@PathVariable Long utenteId) {
-        Optional<Utente> utente = this.utenteRepository.findById(utenteId);
+    @GetMapping
+    public ResponseEntity<?> getUtente(Principal principal) {
+        Optional<Utente> utente = this.utenteRepository.findByEmail(principal.getName());
         if (utente.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-
         return ResponseEntity.status(200).body(utente.get());
     }
 

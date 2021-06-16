@@ -2,6 +2,8 @@ package com.beework.controllers;
 
 import com.beework.models.*;
 import com.beework.repositories.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,11 +31,15 @@ public class ProgettoController {
     @Autowired
     private NotificaRepository notificaRepository;
 
-    //DA RIMUOVERE QUANDO CLIENT SIDE SI HA L'UTENTE'
+    private final Logger logger = LoggerFactory.getLogger(ProgettoController.class);
 
     @GetMapping
-    public ResponseEntity<List<Progetto>> getAll() {
-        return ResponseEntity.ok(this.progettiRepository.findAll());
+    public ResponseEntity<List<Progetto>> getProgettiUtente(Principal principal) {
+        Optional<Utente> utente = this.utenteRepository.findByEmail(principal.getName());
+        if (utente.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(200).body(utente.get().getListaProgetti());
     }
 
     @GetMapping("/{progettoId}")
