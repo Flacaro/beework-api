@@ -39,4 +39,14 @@ public class UtenteController {
 
         return ResponseEntity.status(200).body(utente.get().getListaProgetti());
     }
+
+    @PutMapping
+    public ResponseEntity<Utente> updateUtente(Principal principal) {
+        Optional<Utente> u = this.utenteRepository.findByEmail(principal.getName());
+        if (u.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.status(200).body(u.get());
+    }
 }
