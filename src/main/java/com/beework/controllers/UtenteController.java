@@ -46,8 +46,11 @@ public class UtenteController {
         if (u.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        u.get().setBio(utente.getBio());
+        utente.setBio(u.get().getBio());
+        utenteRepository.flush();
 
-        return ResponseEntity.status(200).body(this.utenteRepository.save(u.get()));
+        return ResponseEntity
+                .noContent()
+                .build();
     }
 }
