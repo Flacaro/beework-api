@@ -136,6 +136,19 @@ public class ProgettoController {
         return ResponseEntity.ok(progetto.get().getTasks());
     }
 
+    @GetMapping("/{progettoId}/tasks/{taskId}")
+    public ResponseEntity<Task> getTask(@PathVariable("progettoId") Long progettoId, @PathVariable("taskId") Long taskId) {
+        Optional<Progetto> progetto = this.progettiRepository.findById(progettoId);
+
+        if(progetto.isEmpty()) return ResponseEntity.notFound().build();
+
+        List<Task> tasks = progetto.get().getTasks();
+        Optional<Task> task = tasks.stream().filter(t -> t.getId().equals(taskId)).findAny();
+        if(task.isEmpty()) return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(task.get());
+    }
+
 
     @PostMapping("/{progettoId}/tasks")
     public ResponseEntity<Task> aggiungiTask(@PathVariable("progettoId") Long progettoId, @RequestBody Task task) {
