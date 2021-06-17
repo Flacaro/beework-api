@@ -24,6 +24,16 @@ public class UtenteController {
         return ResponseEntity.status(201).body(this.utenteRepository.save(utente));
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<Utente> getUtenteById(@PathVariable Long userId) {
+        Optional<Utente> utente = this.utenteRepository.findById(userId);
+
+        if (utente.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(utente.get());
+    }
+
     @GetMapping
     public ResponseEntity<?> getUtente(Principal principal) {
         Optional<Utente> utente = this.utenteRepository.findByEmail(principal.getName());
