@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("utenti/{utenteId}/notifiche")
+@RequestMapping("notifiche")
 public class NotificaController {
     @Autowired
     private NotificaRepository notificaRepository;
@@ -20,8 +21,8 @@ public class NotificaController {
     private UtenteRepository utenteRepository;
 
     @GetMapping
-    public ResponseEntity<List<Notifica>> getNotifiche(@PathVariable Long utenteId) {
-        Optional<Utente> utente = this.utenteRepository.findById(utenteId);
+    public ResponseEntity<List<Notifica>> getNotifiche(Principal principal) {
+        Optional<Utente> utente = this.utenteRepository.findByEmail(principal.getName());
         if (utente.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
