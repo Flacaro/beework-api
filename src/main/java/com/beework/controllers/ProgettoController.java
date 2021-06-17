@@ -26,9 +26,6 @@ public class ProgettoController {
     private TaskRepository taskRepository;
 
     @Autowired
-    private CommentoRepository commentoRepository;
-
-    @Autowired
     private NotificaRepository notificaRepository;
 
     private final Logger logger = LoggerFactory.getLogger(ProgettoController.class);

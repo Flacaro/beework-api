@@ -23,7 +23,7 @@ public class BeeworkApiApplication {
 /*
 
     @Bean
-    public CommandLineRunner loadData(UtenteRepository utenteRepository, TaskRepository taskRepository, ProgettiRepository progettiRepository, NotificaRepository notificaRepository, CommentoRepository commentoRepository) {
+    public CommandLineRunner loadData(UtenteRepository utenteRepository, TaskRepository taskRepository, ProgettiRepository progettiRepository, NotificaRepository notificaRepository) {
         return (args) -> {
             Progetto p1 = new Progetto("Paleontologia", "Corso di Paleontologia", 0);
             Progetto p2 = new Progetto("Etologia", "Corso di Etologia", 20);
@@ -71,14 +71,6 @@ public class BeeworkApiApplication {
             taskRepository.save(t2);
             taskRepository.save(t3);
 
-            Commento c1 = new Commento("Andiamo a vederlo allo zoo!", t3, u2);
-            commentoRepository.save(c1);
-            Commento c2 = new Commento("Non sto nella pelle!", t2, u2);
-            commentoRepository.save(c2);
-            Commento c3 = new Commento("Preferivo il velociraptor", t1, u1);
-            commentoRepository.save(c3);
-            Commento c4 = new Commento("Siii!", t3, u3);
-            commentoRepository.save(c4);
 
             Notifica n1 = new Notifica("Nuovo Progetto", "Sei stato aggiunto al progetto " + p1.getNome(), u1);
             notificaRepository.save(n1);
@@ -109,7 +101,7 @@ public class BeeworkApiApplication {
         };
     }*/
     /*@Bean
-    public CommandLineRunner loadData(UtenteRepository utenteRepository, TaskRepository taskRepository, ProgettiRepository progettiRepository, NotificaRepository notificaRepository, CommentoRepository commentoRepository) {
+    public CommandLineRunner loadData(UtenteRepository utenteRepository, TaskRepository taskRepository, ProgettiRepository progettiRepository, NotificaRepository notificaRepository) {
         return (args) -> {
             Progetto p1 = new Progetto("Paleontologia", "Corso di Paleontologia", 0);
             Progetto p2 = new Progetto("Etologia", "Corso di Etologia", 20);
@@ -137,14 +129,6 @@ public class BeeworkApiApplication {
             u1.getListaTask().add(t1);
             utenteRepository.flush();
             taskRepository.flush();
-
-
-
-            Commento c1 = new Commento("Andiamo a vederlo allo zoo!", t3, u2);
-            Commento c2 = new Commento("Non sto nella pelle!", t2, u2);
-            Commento c3 = new Commento("Preferivo il velociraptor", t1, u1);
-
-            List<Commento> commentiSalvati = commentoRepository.saveAll(List.of(c1,c2,c3));
 
 
             Notifica n1 = new Notifica("Nuovo Progetto", "Sei stato aggiunto al progetto " + p1.getNome(), u1);

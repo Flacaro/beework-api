@@ -27,9 +27,6 @@ public class Task {
 
     @ManyToOne
     private Progetto progetto;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Commento> commenti = new ArrayList<>();
-
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "UTENTE_LAVORA_TASK",
@@ -133,8 +130,4 @@ public class Task {
     public void setProgetto(Progetto progetto) {
         this.progetto = progetto;
     }
-
-    public List<Commento> getCommenti() { return commenti; }
-
-    public void setCommenti(List<Commento> commenti) { this.commenti = commenti; }
 }
