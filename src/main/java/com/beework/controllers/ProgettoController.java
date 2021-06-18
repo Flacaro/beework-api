@@ -126,12 +126,12 @@ public class ProgettoController {
 
 
     @GetMapping("/{progettoId}/tasks")
-    public ResponseEntity<List<Task>> getAllTasks(@PathVariable("progettoId") Long progettoId) {
+    public ResponseEntity<Progetto> getAllTasks(@PathVariable("progettoId") Long progettoId) {
         Optional<Progetto> progetto = this.progettiRepository.findById(progettoId);
 
         if(progetto.isEmpty()) return ResponseEntity.notFound().build();
 
-        return ResponseEntity.ok(progetto.get().getTasks());
+        return ResponseEntity.ok(progetto.get());
     }
 
 
@@ -179,5 +179,20 @@ public class ProgettoController {
         this.progettiRepository.flush();
 
         return ResponseEntity.status(201).body(taskSalvato);
+    }
+
+    @PutMapping("/{progettoId}/tasks/{taskId}")
+    public ResponseEntity<Task> updateTaskState(
+        @PathVariable("progettoId") Long progettoId,
+        @PathVariable("taskId") Long taskId
+    ){
+        Optional<Progetto> progetto = this.progettiRepository.findById(progettoId);
+        Optional<Task> task = this.taskRepository.findById(taskId);
+        if(progetto.isEmpty() || task.isEmpty()) return ResponseEntity.notFound().build();
+
+        task.get().setCompletato(true);
+        this.taskRepository.flush();
+
+        return ResponseEntity.ok(task.get());
     }
 }
