@@ -5,6 +5,7 @@ import com.beework.repositories.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -131,6 +132,38 @@ public class ProgettoController {
         if(progetto.isEmpty()) return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(progetto.get().getTasks());
+    }
+
+
+    @GetMapping("/{progettoId}/tasks/{taskId}")
+    public ResponseEntity<Task> getTaskById(
+        @PathVariable("progettoId") Long progettoId,
+        @PathVariable("taskId") Long taskId
+        ) {
+
+        Optional<Progetto> progetto = this.progettiRepository.findById(progettoId);
+        Optional<Task> task = this.taskRepository.findById(taskId);
+
+        if(progetto.isEmpty() || task.isEmpty()) return ResponseEntity.notFound().build();
+
+
+        return ResponseEntity.ok(task.get());
+    }
+
+
+    @DeleteMapping("/{progettoId}/tasks/{taskId}")
+    public ResponseEntity<HttpStatus> deleteTaskById(
+        @PathVariable("progettoId") Long progettoId,
+        @PathVariable("taskId") Long taskId
+    ) {
+
+        Optional<Progetto> progetto = this.progettiRepository.findById(progettoId);
+        Optional<Task> task = this.taskRepository.findById(taskId);
+        if(progetto.isEmpty() || task.isEmpty()) return ResponseEntity.notFound().build();
+        progetto.get().getTasks().remove(task.get());
+        this.taskRepository.delete(task.get());
+
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/{progettoId}/tasks")

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -18,6 +19,14 @@ public class UtenteController {
     private final Logger logger = LoggerFactory.getLogger(UtenteController.class);
     @Autowired
     private UtenteRepository utenteRepository;
+
+    @GetMapping("/tutti")
+    public ResponseEntity<List<Utente>> getAllUser(Principal principal) {
+        Optional<Utente> utente = this.utenteRepository.findByEmail(principal.getName());
+        List<Utente> utenti = this.utenteRepository.findAll().stream().filter(u -> !u.equals(utente.get())).toList();
+        return ResponseEntity.ok(utenti);
+    }
+
 
     @PostMapping
     public ResponseEntity<Utente> addUtente(@RequestBody Utente utente){
