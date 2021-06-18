@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("utenti")
@@ -23,7 +24,9 @@ public class UtenteController {
     @GetMapping("/tutti")
     public ResponseEntity<List<Utente>> getAllUser(Principal principal) {
         Optional<Utente> utente = this.utenteRepository.findByEmail(principal.getName());
-        List<Utente> utenti = this.utenteRepository.findAll().stream().filter(u -> !u.equals(utente.get())).toList();
+        List<Utente> utenti = this.utenteRepository.findAll().stream()
+                    .filter(u -> !u.equals(utente.get()))
+                    .collect(Collectors.toList());
         return ResponseEntity.ok(utenti);
     }
 
