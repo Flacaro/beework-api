@@ -27,3 +27,6 @@ $ mvn spring-boot:run
 
 - [Flaviana Caroselli](https://github.com/Flacaro)
 - [Angelo Casciani](https://github.com/AngeloC99)
+
+## Documentazione
+- [BeeWork documentation](https://app.gitbook.com/@flavianacaroselli/s/beework/)
